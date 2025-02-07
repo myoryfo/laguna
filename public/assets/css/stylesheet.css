@@ -1,0 +1,23 @@
+.height {
+	height: 100vh;
+}
+
+div.logo {
+	width: 40px;
+}
+
+div.logo img {
+	width: 100%;
+	height: auto;
+}
+
+.context-menu {
+	cursor: context-menu;
+}
+
+.bg-img {
+	background-image: url("../img/background.jpg");
+	background-repeat: no-repeat;
+	background-color: #cccccc;
+	background-size: 100% 100%;
+}
