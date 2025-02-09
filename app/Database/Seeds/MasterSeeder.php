@@ -11,6 +11,8 @@ class MasterSeeder extends Seeder
         // Call the individual seeders
         $this->call('LokasiSeeder');
         $this->call('UserSeeder');
+        $this->call('BarangSeeder');
+        $this->call('StatusSeeder');
         // Add other seeders here if needed
     }
 }

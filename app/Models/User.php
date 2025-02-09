@@ -15,11 +15,11 @@ class User extends Model
         return $this->where('username', $username)->first();
     }
 
-    public function createUser($data)
+    public function getUserWithLokasi($username)
     {
-        if (isset($data['password'])) {
-            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        }
-        return $this->insert($data);
+        return  $this->where('username', $username)
+            ->select('users.*, lokasi.name as lokasi_name')
+            ->join('lokasi', 'lokasi.id = users.lokasi_id')
+            ->first();
     }
 }

@@ -21,18 +21,24 @@ class Auth extends Controller
 
     public function login()
     {
+        if (session()->get('logged_in')) {
+            return redirect()->to('/');
+        };
 
         if ($this->request->getMethod() === 'POST') {
+
             $username = $this->request->getVar('username');
             $password = $this->request->getVar('password');
 
-            $userData = $this->user->where('username', $username)->first();
+            $userData = $this->user->getUserWithLokasi($username);
 
             if ($userData && password_verify($password, $userData['password'])) {
                 session()->set([
                     'id' => $userData['id'],
                     'username' => $userData['username'],
+                    'name' => $userData['name'],
                     'logged_in' => true,
+                    'lokasi_name' => $userData['lokasi_name']
                 ]);
                 return redirect()->to('/');
             } else {
@@ -43,30 +49,14 @@ class Auth extends Controller
         return view('auth/login', ['title' => 'Login Laguna']);
     }
 
-    // public function register()
-    // {
-    //     if ($this->request->getMethod() === 'post') {
-    //         $data = [
-    //             'username'      => $this->request->getPost('username'),
-    //             'password'      => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-    //             'name'          => $this->request->getPost('name'),
-    //             'role_id'       => $this->request->getPost('role_id'),
-    //             'location_id'   => $this->request->getPost('location_id'),
-    //         ];
 
-    //         $model = new User();
-    //         if ($model->insert($data)) {
-    //             return redirect()->to('/login')->with('success', 'Registration successful. You can now log in.');
-    //         } else {
-    //             return redirect()->back()->with('error', 'Registration failed. Please try again.');
-    //         }
-    //     }
-
-    //     return view('auth/register', ['title' => 'Laguna Register']);
-    // }
 
     public function register()
     {
+        if (session()->get('logged_in')) {
+            return redirect()->to('/');
+        };
+
         if ($this->request->getMethod() === 'post') {
             echo "Registered";
         } else {

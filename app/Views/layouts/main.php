@@ -22,20 +22,26 @@
     <link href="<?= base_url(); ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/css/stylesheet.css" rel="stylesheet">
 
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" />
+
 </head>
 
 <body id="page-top">
-    <?php if (session()->get('logged_in')): ?>
-        <div class="alert alert-success" role="alert" id="login-alert">
-            You are logged in!
-        </div>
-    <?php endif; ?>
+
+
+
 
     <!-- Page Wrapper -->
+
     <div id="wrapper">
+
 
         <!-- Modal Navbar -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -45,47 +51,79 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="<?= base_url('your_route'); ?>" method="post">
                             <div class="row g-3">
                                 <!-- First Column -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="firstName" class="form-label">Isi Barang</label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="Masukkan Ket Isi Barang">
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Masukkan Ket Isi Barang">
                                     </div>
                                     <div class="mb-3">
                                         <label for="namaPenerima" class="form-label">Nama Penerima</label>
-                                        <input type="text" class="form-control" id="namaPenerima" placeholder="Masukkan Nama Penerima">
+                                        <input type="text" class="form-control" id="namaPenerima" name="namaPenerima" placeholder="Masukkan Nama Penerima">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="alamatPengirim" class="form-label">Alamat Pengirim</label>
-                                        <input type="text" class="form-control" id="alamatPengirim" placeholder="Masukkan Alamat Penerima">
+                                        <label for="alamatPenerima" class="form-label">Alamat Penerima</label>
+                                        <input type="text" class="form-control" id="alamatPenerima" name="alamatPenerima" placeholder="Masukkan Alamat Penerima">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="noTlpPenerima" class="form-label">Nomor Telepon Penerima</label>
+                                        <input type="text" class="form-control" id="noTlpPenerima" name="noTlpPenerima" placeholder="Masukan No Telepon Penerima">
                                     </div>
                                 </div>
 
                                 <!-- Second Column -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
+                                        <label for="kotaTujuan" class="form-label">Kota Tujuan</label>
+                                        <div class="input-group">
+                                            <select class="form-control" id="kotaTujuan" name="kotaTujuan">
+                                                <option value="">Pilih Kota Tujuan</option>
+                                                <option value="Parepare">Parepare</option>
+                                                <option value="Pinrang">Pinrang</option>
+                                                <option value="Barru">Barru</option>
+                                                <option value="Pangkep">Pangkep</option>
+                                                <option value="Sengkang">Sengkang</option>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="namaPengirim" class="form-label">Nama Pengirim</label>
-                                        <input type="text" class="form-control" id="namaPengirim" placeholder="Masukkan Nama Pengirim">
+                                        <input type="text" class="form-control" id="namaPengirim" name="namaPengirim" placeholder="Masukkan Nama Pengirim">
                                     </div>
                                     <div class="mb-3">
                                         <label for="alamatPengirim" class="form-label">Alamat Pengirim</label>
-                                        <input type="text" class="form-control" id="alamatPengirim" placeholder="Masukan Nama Pengirim">
+                                        <input type="text" class="form-control" id="alamatPengirim" name="alamatPengirim" placeholder="Masukan Nama Pengirim">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="noTlpPengirim" class="form-label">Nomor Telepon Pengirim</label>
+                                        <input type="text" class="form-control" id="noTlpPengirim" name="noTlpPengirim" placeholder="Masukan No Telepon Pengirim">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Send message</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>
                     </div>
 
                 </div>
             </div>
+            <?php if (session()->get('logged_in')): ?>
+
+                <div class="alert alert-success" role="alert" id="login-alert">
+                    You are logged in!
+                </div>
+            <?php endif; ?>
+
         </div>
+
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -95,7 +133,7 @@
                 <div class="sidebar-brand-icon logo">
                     <img src="<?= base_url('assets/img/iconS.png'); ?>">
                 </div>
-                <div class="sidebar-brand-text mx-3">LAGUNA</sup></div>
+                <div class="sidebar-brand-text mx-3" style="text-transform:uppercase">LAGUNA <?php echo session()->get('lokasi_name'); ?></div>
             </a>
 
             <!-- Divider -->
@@ -222,7 +260,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ryfo</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= session()->get('name'); ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/default.jpg'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -280,6 +318,16 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>assets/js/sb-admin-2.min.js"></script>
+    <script src="<?= base_url(); ?>assets/js/script.js"></script>
+
+    <!-- DataTable -->
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+
+
 
     <script>
         setTimeout(function() {
