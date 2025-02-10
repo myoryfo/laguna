@@ -51,38 +51,43 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="<?= base_url('your_route'); ?>" method="post">
+                        <form action="/" method="post">
                             <div class="row g-3">
                                 <!-- First Column -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="firstName" class="form-label">Isi Barang</label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Masukkan Ket Isi Barang">
+                                        <label for="isi_barang" class="form-label">Isi Barang</label>
+                                        <input type="text" class="form-control" id="isi_barang" name="isi_barang" placeholder="Masukkan Ket Isi Barang">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="namaPenerima" class="form-label">Nama Penerima</label>
-                                        <input type="text" class="form-control" id="namaPenerima" name="namaPenerima" placeholder="Masukkan Nama Penerima">
+                                        <label for="nama_penerima" class="form-label">Nama Penerima</label>
+                                        <input type="text" class="form-control" id="nama_penerima" name="nama_penerima" placeholder="Masukkan Nama Penerima">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="alamatPenerima" class="form-label">Alamat Penerima</label>
-                                        <input type="text" class="form-control" id="alamatPenerima" name="alamatPenerima" placeholder="Masukkan Alamat Penerima">
+                                        <label for="alamat_penerima" class="form-label">Alamat Penerima</label>
+                                        <input type="text" class="form-control" id="alamat_penerima" name="alamat_penerima" placeholder="Masukkan Alamat Penerima">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="noTlpPenerima" class="form-label">Nomor Telepon Penerima</label>
-                                        <input type="text" class="form-control" id="noTlpPenerima" name="noTlpPenerima" placeholder="Masukan No Telepon Penerima">
+                                        <label for="no_tlp_penerima" class="form-label">Nomor Telepon Penerima</label>
+                                        <input type="text" class="form-control" id="no_tlp_penerima" name="no_tlp_penerima" placeholder="Masukan No Telepon Penerima">
                                     </div>
+                                    <!-- Hidden -->
+                                    <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= session()->get('lokasi_id'); ?>">
+                                    <input type="hidden" id="status_id" name="status_id" value="1">
+
                                 </div>
 
                                 <!-- Second Column -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="kotaTujuan" class="form-label">Kota Tujuan</label>
+                                        <label for="kota_tujuan" class="form-label">Kota Tujuan</label>
                                         <div class="input-group">
-                                            <select class="form-control" id="kotaTujuan" name="kotaTujuan">
+                                            <select class="form-control" id="kota_tujuan" name="kota_tujuan">
                                                 <option value="">Pilih Kota Tujuan</option>
                                                 <option value="Parepare">Parepare</option>
-                                                <option value="Pinrang">Pinrang</option>
                                                 <option value="Barru">Barru</option>
+                                                <option value="Pinrang">Pinrang</option>
+                                                <option value="Sidrap">Sidrap</option>
                                                 <option value="Pangkep">Pangkep</option>
                                                 <option value="Sengkang">Sengkang</option>
                                             </select>
@@ -92,16 +97,16 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="namaPengirim" class="form-label">Nama Pengirim</label>
-                                        <input type="text" class="form-control" id="namaPengirim" name="namaPengirim" placeholder="Masukkan Nama Pengirim">
+                                        <label for="nama_pengirim" class="form-label">Nama Pengirim</label>
+                                        <input type="text" class="form-control" id="nama_pengirim" name="nama_pengirim" placeholder="Masukkan Nama Pengirim">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="alamatPengirim" class="form-label">Alamat Pengirim</label>
-                                        <input type="text" class="form-control" id="alamatPengirim" name="alamatPengirim" placeholder="Masukan Nama Pengirim">
+                                        <label for="alamat_pengirim" class="form-label">Alamat Pengirim</label>
+                                        <input type="text" class="form-control" id="alamat_pengirim" name="alamat_pengirim" placeholder="Masukan Nama Pengirim">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="noTlpPengirim" class="form-label">Nomor Telepon Pengirim</label>
-                                        <input type="text" class="form-control" id="noTlpPengirim" name="noTlpPengirim" placeholder="Masukan No Telepon Pengirim">
+                                        <label for="no_tlp_pengirim" class="form-label">Nomor Telepon Pengirim</label>
+                                        <input type="text" class="form-control" id="no_tlp_pengirim" name="no_tlp_pengirim" placeholder="Masukan No Telepon Pengirim">
                                     </div>
                                 </div>
                             </div>

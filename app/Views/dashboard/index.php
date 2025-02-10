@@ -3,7 +3,22 @@
 <?= $this->section('content') ?>
 
 
-
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success" id="success-alert">
+        <?= session()->getFlashdata('success') ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('success-alert').classList.add('fade-out');
+        }, 1000);
+    </script>
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+    </style>
+<?php endif; ?>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -11,6 +26,7 @@
         <div class="card-header py-3">
             <h3 class="m-0 font-weight-bold">Daftar Barang</h3>
         </div>
+
 
         <div class="card-body">
             <div class="table-responsive sortable-table">
@@ -80,22 +96,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1;
-                        foreach ($barang as $item): ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $item['noresi'] ?></td>
-                                <td><?= $item['isi_barang'] ?></td>
-                                <td><?= $item['penerima'] ?></td>
-                                <td><?= $item['alamat_penerima'] ?></td>
-                                <td><?= $item['kota_tujuan'] ?></td>
-                                <td><?= $item['pengirim'] ?></td>
-                                <td><?= $item['alamat_pengirim'] ?></td>
-                                <td><?= $item['lokasi_name'] ?></td>
-                                <td><?= $item['status_name'] ?></td>
-                                <td><?= $item['created_at'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <?php
+                        $no = 1;
+                        foreach ($barang as $item):
+                            if ($item['lokasi_name'] == session()->get('lokasi_name')): ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $item['noresi'] ?></td>
+                                    <td><?= $item['isi_barang'] ?></td>
+                                    <td><?= $item['penerima'] ?></td>
+                                    <td><?= $item['alamat_penerima'] ?></td>
+                                    <td><?= $item['kota_tujuan'] ?></td>
+                                    <td><?= $item['pengirim'] ?></td>
+                                    <td><?= $item['alamat_pengirim'] ?></td>
+                                    <td><?= $item['lokasi_name'] ?></td>
+                                    <td><?= $item['status_name'] ?></td>
+                                    <td><?= $item['created_at'] ?></td>
+                                </tr>
+                        <?php
+                            endif;
+                        endforeach; ?>
                     </tbody>
                 </table>
             </div>

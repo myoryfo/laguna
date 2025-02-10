@@ -38,7 +38,8 @@ class Auth extends Controller
                     'username' => $userData['username'],
                     'name' => $userData['name'],
                     'logged_in' => true,
-                    'lokasi_name' => $userData['lokasi_name']
+                    'lokasi_name' => $userData['lokasi_name'],
+                    'lokasi_id' => $userData['lokasi_id']
                 ]);
                 return redirect()->to('/');
             } else {
