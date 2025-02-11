@@ -8,6 +8,7 @@ class Barang extends Model
 {
     protected $table = 'barang';
     protected $primaryKey = 'id';
+    protected $useTimestamps = true;
     protected $allowedFields = [
         'noresi',
         'isi_barang',
@@ -24,6 +25,7 @@ class Barang extends Model
         'created_at',
         'updated_at'
     ];
+
 
     public function getBarangWithLokasiAndStatus()
     {

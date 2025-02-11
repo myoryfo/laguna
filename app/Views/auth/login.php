@@ -45,6 +45,7 @@
                   </div>
                   <?= session()->getFlashdata('error') ?>
                   <form action="/login" method="post">
+                    <?= csrf_field() ?>
                     <div class="form-group">
                       <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="User Name">
                     </div>
