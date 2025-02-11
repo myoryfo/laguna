@@ -35,7 +35,7 @@ class CreateUsersTable extends Migration
                 'type'       => 'INT',
                 'unsigned'   => true,
             ],
-            'location_id' => [
+            'lokasi_id' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
             ],

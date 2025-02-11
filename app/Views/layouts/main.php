@@ -39,95 +39,7 @@
     <div id="wrapper">
 
 
-        <!-- Modal Navbar -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/" method="post">
-                            <div class="row g-3">
-                                <!-- First Column -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="isi_barang" class="form-label">Isi Barang</label>
-                                        <input type="text" class="form-control" id="isi_barang" name="isi_barang" placeholder="Masukkan Ket Isi Barang">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nama_penerima" class="form-label">Nama Penerima</label>
-                                        <input type="text" class="form-control" id="nama_penerima" name="nama_penerima" placeholder="Masukkan Nama Penerima">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="alamat_penerima" class="form-label">Alamat Penerima</label>
-                                        <input type="text" class="form-control" id="alamat_penerima" name="alamat_penerima" placeholder="Masukkan Alamat Penerima">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="no_tlp_penerima" class="form-label">Nomor Telepon Penerima</label>
-                                        <input type="text" class="form-control" id="no_tlp_penerima" name="no_tlp_penerima" placeholder="Masukan No Telepon Penerima">
-                                    </div>
-                                    <!-- Hidden -->
-                                    <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= session()->get('lokasi_id'); ?>">
-                                    <input type="hidden" id="status_id" name="status_id" value="1">
-
-                                </div>
-
-                                <!-- Second Column -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="kota_tujuan" class="form-label">Kota Tujuan</label>
-                                        <div class="input-group">
-                                            <select class="form-control" id="kota_tujuan" name="kota_tujuan">
-                                                <option value="">Pilih Kota Tujuan</option>
-                                                <option value="Parepare">Parepare</option>
-                                                <option value="Barru">Barru</option>
-                                                <option value="Pinrang">Pinrang</option>
-                                                <option value="Sidrap">Sidrap</option>
-                                                <option value="Pangkep">Pangkep</option>
-                                                <option value="Sengkang">Sengkang</option>
-                                            </select>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nama_pengirim" class="form-label">Nama Pengirim</label>
-                                        <input type="text" class="form-control" id="nama_pengirim" name="nama_pengirim" placeholder="Masukkan Nama Pengirim">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="alamat_pengirim" class="form-label">Alamat Pengirim</label>
-                                        <input type="text" class="form-control" id="alamat_pengirim" name="alamat_pengirim" placeholder="Masukan Nama Pengirim">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="no_tlp_pengirim" class="form-label">Nomor Telepon Pengirim</label>
-                                        <input type="text" class="form-control" id="no_tlp_pengirim" name="no_tlp_pengirim" placeholder="Masukan No Telepon Pengirim">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-            <?php if (session()->get('logged_in')): ?>
-
-                <div class="alert alert-success" role="alert" id="login-alert">
-                    You are logged in!
-                </div>
-            <?php endif; ?>
-
-        </div>
 
 
         <!-- Sidebar -->
@@ -152,9 +64,9 @@
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<?= base_url('dashboard'); ?>">List Entry</a>
-                        <a class="collapse-item" href="<?= base_url('dashboard'); ?>" data-toggle="modal" data-target="#exampleModal">Tambah Entry</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">List Delivery</a>
+                        <a class="collapse-item" href="<?= base_url('/'); ?>">Daftar Barang</a>
+                        <a class="collapse-item" href="<?= base_url('/'); ?>" data-toggle="modal" data-target="#exampleModal">Tambah Entry</a>
+                        <a class="collapse-item" href="<?= base_url('/'); ?>" data-toggle="modal" data-target="#trackingModal">Tracking</a>
                         <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">Tambah Delivery</a>
                         <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">On Delivery Departour</a>
                         <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">On Delivery Arrived</a>
@@ -252,6 +164,8 @@
             <!-- Main Content -->
             <div id="content">
 
+
+
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -292,6 +206,7 @@
 
                 </nav>
                 <!-- End of Topbar -->
+
                 <!-- Begin Page Content -->
                 <?= $this->renderSection('content') ?>
                 <!-- /.container-fluid -->
