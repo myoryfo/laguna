@@ -1,6 +1,7 @@
 <?= $this->extend('layouts\main') ?>
 
 <?= $this->section('content') ?>
+<?php $modal = session()->getFlashdata('modal');  ?>
 
 <!-- Modal Tambah Barang-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -9,30 +10,43 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalEntry">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="/" method="post">
+                <?= csrf_field(); ?>
                     <div class="row g-3">
                         <!-- First Column -->
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="isi_barang" class="form-label">Isi Barang</label>
-                                <input type="text" class="form-control" id="isi_barang" name="isi_barang" placeholder="Masukkan Ket Isi Barang">
+                                <input type="text" class="form-control <?= ($validation->hasError('isi_barang') ? 'is-invalid' : '' ); ?>" id="isi_barang" name="isi_barang" placeholder="Masukkan Ket Isi Barang">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('penerima'); ?>
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="nama_penerima" class="form-label">Nama Penerima</label>
-                                <input type="text" class="form-control" id="nama_penerima" name="nama_penerima" placeholder="Masukkan Nama Penerima">
+                                <label for="penerima" class="form-label">Nama Penerima</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('penerima') ? 'is-invalid' : '' ); ?>" id="penerima" name="penerima" placeholder="Masukkan Nama Penerima">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('penerima'); ?>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="alamat_penerima" class="form-label">Alamat Penerima</label>
-                                <input type="text" class="form-control" id="alamat_penerima" name="alamat_penerima" placeholder="Masukkan Alamat Penerima">
+                                <input type="text" class="form-control <?= ($validation->hasError('alamat_penerima') ? 'is-invalid' : '' ); ?>" id="alamat_penerima" name="alamat_penerima" placeholder="Masukkan Alamat Penerima">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('alamat_penerima'); ?>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="no_tlp_penerima" class="form-label">Nomor Telepon Penerima</label>
-                                <input type="text" class="form-control" id="no_tlp_penerima" name="no_tlp_penerima" placeholder="Masukan No Telepon Penerima">
+                                <input type="text" class="form-control <?= ($validation->hasError('no_tlp_penerima') ? 'is-invalid' : '' ); ?>" id="no_tlp_penerima" name="no_tlp_penerima" placeholder="Masukan No Telepon Penerima">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('no_tlp_penerima'); ?>
+                                </div>
                             </div>
                             <!-- Hidden -->
                             <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= session()->get('lokasi_id'); ?>">
@@ -60,16 +74,25 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="nama_pengirim" class="form-label">Nama Pengirim</label>
-                                <input type="text" class="form-control" id="nama_pengirim" name="nama_pengirim" placeholder="Masukkan Nama Pengirim">
+                                <label for="pengirim" class="form-label">Nama Pengirim</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('pengirim') ? 'is-invalid' : '' ); ?>" id="pengirim" name="pengirim" placeholder="Masukkan Nama Pengirim">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('pengirim'); ?>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="alamat_pengirim" class="form-label">Alamat Pengirim</label>
-                                <input type="text" class="form-control" id="alamat_pengirim" name="alamat_pengirim" placeholder="Masukan Nama Pengirim">
+                                <input type="text" class="form-control <?= ($validation->hasError('alamat_pengirim') ? 'is-invalid' : '' ); ?>" id="alamat_pengirim" name="alamat_pengirim" placeholder="Masukan Nama Pengirim">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('alamat_pengirim'); ?>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="no_tlp_pengirim" class="form-label">Nomor Telepon Pengirim</label>
-                                <input type="text" class="form-control" id="no_tlp_pengirim" name="no_tlp_pengirim" placeholder="Masukan No Telepon Pengirim">
+                                <input type="text" class="form-control <?= ($validation->hasError('no_tlp_pengirim') ? 'is-invalid' : '' ); ?>" id="no_tlp_pengirim" name="no_tlp_pengirim" placeholder="Masukan No Telepon Pengirim">
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                <?= $validation->getError('no_tlp_pengirim'); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,6 +114,23 @@
     <?php endif; ?>
 
 </div>
+<?php if ($modal): ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            backdrop: true, // Ensures clicking outside still closes modal
+            keyboard: true // Allows escape key to close modal
+        });
+        myModal.show();
+
+         // Ensure the close button works by reattaching event listeners
+         modalElement.addEventListener('hidden.bs.modal', function () {
+            myModal.dispose(); // Properly destroy the modal instance
+        });
+    });
+</script>
+
+<?php endif; ?>
 <!-- End Modal Tambah Barang -->
 
 <!-- Modal Navbar Tracking Barang-->
@@ -121,7 +161,6 @@
         </div>
     </div>
     <?php if (session()->get('logged_in')): ?>
-
         <div class="alert alert-success" role="alert" id="login-alert">
             You are logged in!
         </div>
@@ -129,10 +168,17 @@
 
 </div>
 <!-- End Modal Tracking Barang -->
+ 
 
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success position-sticky" id="success-alert">
-        <?= session()->getFlashdata('success') ?>
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="card shadow mb-4 position-relative">
+<!-- Session Flash Success -->
+    <?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success position-absolute top-0 start-50" id="success-alert">
+    <?= session()->getFlashdata('success') ?>
     </div>
     <script>
         setTimeout(function() {
@@ -145,11 +191,8 @@
             transition: opacity 1s ease-out;
         }
     </style>
-<?php endif; ?>
-
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="card shadow mb-4">
+    <?php endif; ?>
+<!-- End Session Flash Success -->
         <div class="card-header py-3">
             <h3 class="m-0 font-weight-bold">Daftar Barang</h3>
         </div>
