@@ -11,7 +11,7 @@ class StatusSeeder extends Seeder
         $data = [
             ['name' => 'Entry'],
             ['name' => 'Departour To'],
-            ['name' => 'Arrived To'],
+            ['name' => 'Arrived In'],
             ['name' => 'Delivery On Cour'],
             ['name' => 'Success'],
             ['name' => 'Return'],

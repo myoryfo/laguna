@@ -34,4 +34,29 @@ class Barang extends Model
             ->join('status', 'status.id = barang.status_id')
             ->findAll();
     }
+
+    public function getBarangWithLokasiAndDepartour()
+    {
+        return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
+            ->join('lokasi', 'lokasi.id = barang.lokasi_id')
+            ->join('status', 'status.id = barang.status_id')
+            ->where('lokasi_id', session()->get('lokasi_id'))
+            ->whereIn('status.id', [1,2])
+            ->orderBy('status.id', 'ASC')
+            ->orderBy('updated_at', 'DESC')
+            ->findAll();
+    }
+    
+    public function getBarangWithLokasiAndArrived()
+    {
+        return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
+            ->join('lokasi', 'lokasi.id = barang.lokasi_id')
+            ->join('status', 'status.id = barang.status_id')
+            ->where('kota_tujuan', session()->get('lokasi_name'))
+            ->whereIn('status.id', [2,3])
+            ->orderBy('status.id', 'ASC')
+            ->orderBy('updated_at', 'DESC')
+            ->findAll();
+    }
+    
 }

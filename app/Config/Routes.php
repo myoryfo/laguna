@@ -7,6 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'DashboardController::index');
 $routes->post('/', 'DashboardController::tambahEntry');
+$routes->get('departour', 'StationController::departour');
+$routes->get('arrived', 'StationController::arrived');
+
+
 $routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::login');
 $routes->get('/register', 'Auth::register');
@@ -14,4 +18,11 @@ $routes->post('/register', 'Auth::register');
 $routes->get('/logout', 'Auth::logout');
 $routes->get('/hello', function () {
     return view('hello');
+});
+
+
+$routes->group('api', ['namespace' => 'App\Controllers\API'], function ($routes) {
+    $routes->get('barang', 'BarangController::index'); // Get all Barang
+    $routes->post('departour/update-status/(:num)', 'BarangController::updateStatusDepartour/$1');
+    $routes->post('arrived/update-status/(:num)', 'BarangController::updateStatusArrived/$1');
 });

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="<?= csrf_token() ?>"> <!-- CSRF Token di meta tag -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <title><?= $title; ?></title>
     <!-- Custom icon page -->
@@ -26,6 +28,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -67,9 +70,8 @@
                         <a class="collapse-item" href="<?= base_url('/'); ?>">Daftar Barang</a>
                         <a class="collapse-item" href="<?= base_url('/'); ?>" data-toggle="modal" data-target="#exampleModal">Tambah Entry</a>
                         <a class="collapse-item" href="<?= base_url('/'); ?>" data-toggle="modal" data-target="#trackingModal">Tracking</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">Tambah Delivery</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">On Delivery Departour</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">On Delivery Arrived</a>
+                        <a class="collapse-item" href="<?= base_url('departour'); ?>">Departour</a>
+                        <a class="collapse-item" href="<?= base_url('arrived'); ?>">Arrived</a>
                     </div>
                 </div>
             </li>
@@ -206,6 +208,172 @@
 
                 </nav>
                 <!-- End of Topbar -->
+                <?php $modal = session()->getFlashdata('modal');  ?>
+                 <!-- Modal Tambah Barang-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalEntry">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="/" method="post">
+            <?= csrf_field(); ?>
+                <div class="row g-3">
+                    <!-- First Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="isi_barang" class="form-label">Isi Barang</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('isi_barang') ? 'is-invalid' : '' ); ?>" id="isi_barang" name="isi_barang" placeholder="Masukkan Ket Isi Barang" value="<?= old('isi_barang')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('penerima'); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="penerima" class="form-label">Nama Penerima</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('penerima') ? 'is-invalid' : '' ); ?>" id="penerima" name="penerima" placeholder="Masukkan Nama Penerima" value="<?= old('penerima')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('penerima'); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat_penerima" class="form-label">Alamat Penerima</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('alamat_penerima') ? 'is-invalid' : '' ); ?>" id="alamat_penerima" name="alamat_penerima" placeholder="Masukkan Alamat Penerima" value="<?= old('alamat_penerima')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('alamat_penerima'); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_tlp_penerima" class="form-label">Nomor Telepon Penerima</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('no_tlp_penerima') ? 'is-invalid' : '' ); ?>" id="no_tlp_penerima" name="no_tlp_penerima" placeholder="Masukan No Telepon Penerima" value="<?= old('no_tlp_penerima')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('no_tlp_penerima'); ?>
+                            </div>
+                        </div>
+                        <!-- Hidden -->
+                        <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= session()->get('lokasi_id'); ?>">
+                        <input type="hidden" id="status_id" name="status_id" value="1">
+
+                    </div>
+
+                    <!-- Second Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="kota_tujuan" class="form-label">Kota Tujuan</label>
+                            <div class="input-group">
+                                <select class="form-select <?= ($validation->hasError('kota_tujuan') ? 'is-invalid' : '' ); ?>" id="kota_tujuan" name="kota_tujuan" aria-describedby="kota_tujuan" >
+                                    <option value="">Pilih Kota Tujuan</option>
+                                    <option value="Parepare">Parepare</option>
+                                    <option value="Barru">Barru</option>
+                                    <option value="Pinrang">Pinrang</option>
+                                    <option value="Sidrap">Sidrap</option>
+                                    <option value="Pangkep">Pangkep</option>
+                                    <option value="Sengkang">Sengkang</option>
+                                </select>
+                                <div id="kota_tujuan" class="invalid-feedback">
+                                <?= $validation->getError('kota_tujuan'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pengirim" class="form-label">Nama Pengirim</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('pengirim') ? 'is-invalid' : '' ); ?>" id="pengirim" name="pengirim" placeholder="Masukkan Nama Pengirim" value="<?= old('pengirim')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('pengirim'); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat_pengirim" class="form-label">Alamat Pengirim</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('alamat_pengirim') ? 'is-invalid' : '' ); ?>" id="alamat_pengirim" name="alamat_pengirim" placeholder="Masukan Nama Pengirim" value="<?= old('alamat_pengirim')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('alamat_pengirim'); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_tlp_pengirim" class="form-label">Nomor Telepon Pengirim</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('no_tlp_pengirim') ? 'is-invalid' : '' ); ?>" id="no_tlp_pengirim" name="no_tlp_pengirim" placeholder="Masukan No Telepon Pengirim" value="<?= old('no_tlp_pengirim')?>">
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <?= $validation->getError('no_tlp_pengirim'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<?php if (session()->get('logged_in')): ?>
+
+    <div class="alert alert-success" role="alert" id="login-alert">
+        You are logged in!
+    </div>
+<?php endif; ?>
+
+</div>
+<?php if ($modal): ?>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+        backdrop: true, // Ensures clicking outside still closes modal
+        keyboard: true // Allows escape key to close modal
+    });
+    myModal.show();
+
+     // Ensure the close button works by reattaching event listeners
+     modalElement.addEventListener('hidden.bs.modal', function () {
+        myModal.dispose(); // Properly destroy the modal instance
+    });
+});
+</script>
+
+<?php endif; ?>
+<!-- End Modal Tambah Barang -->
+
+<!-- Modal Navbar Tracking Barang-->
+<div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal-dialog modal-fullscreen-xxl-down" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-center w-100" id="exampleModalLabel">Tracking Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body position-relative">
+            <form action="/" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control text-center" id="no_resi" name="no_resi" placeholder="Masukkan Nomor Resi">
+                </div>
+
+                <div class="modal-footer position-absolute bottom-0 end-0 w-100">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<?php if (session()->get('logged_in')): ?>
+    <div class="alert alert-success" role="alert" id="login-alert">
+        You are logged in!
+    </div>
+<?php endif; ?>
+
+</div>
+<!-- End Modal Tracking Barang -->
 
                 <!-- Begin Page Content -->
                 <?= $this->renderSection('content') ?>

@@ -39,8 +39,6 @@ class DashboardController extends BaseController
 
     public function tambahEntry()
     {
-
-
         $rules = [
             'isi_barang' => [
                 'rules' => 'required|max_length[255]',
@@ -71,6 +69,12 @@ class DashboardController extends BaseController
                 'rules' => 'required|max_length[255]',
                 'errors'=> [
                     'required' => 'Nama Pengirim Harus Diisi!'
+                ]
+            ],
+            'kota_tujuan' => [
+                'rules' => 'required',
+                'errors'=> [
+                    'required' => 'Pilih Kota Tujuan!'
                 ]
             ],
             'alamat_pengirim' => [
@@ -110,8 +114,6 @@ class DashboardController extends BaseController
             // dd($validation->listErrors());
             return redirect()->back()->withInput()->with('validation', $validation)->with('modal', true);
         }
-
-
         $this->barang->save($data);
         session()->setFlashdata('success', 'Entry added successfully.');
         return redirect()->to('/');
