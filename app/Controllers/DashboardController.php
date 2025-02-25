@@ -3,19 +3,26 @@
 namespace App\Controllers;
 
 use App\Models\Barang;
+use App\Models\User;
+
 
 
 class DashboardController extends BaseController
 {
     protected $barang;
+    protected $user;
 
     public function __construct()
     {
         $this->barang = new Barang();
+        $this->user = $this->getUser();
+        
     }
 
     public function index()
     {
+        $user = $this->user; //this called data user login
+
         $barangData = $this->barang->getBarangWithLokasiAndStatus();
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
@@ -32,6 +39,7 @@ class DashboardController extends BaseController
             'company' => 'Laguna',
             'barang' => $barangData,
             'validation' => $validation,
+            'user' => $user
         ];
 
         return view('dashboard/index', $data);
@@ -105,7 +113,6 @@ class DashboardController extends BaseController
             'alamat_pengirim' => $this->request->getPost('alamat_pengirim'),
             'no_tlp_pengirim' => $this->request->getPost('no_tlp_pengirim'),
             'lokasi_id' => $this->request->getPost('lokasi_id'),
-            'kota_asal' => session()->get('lokasi_name'),
             'status_id' => $this->request->getPost('status_id'),
         ];
 

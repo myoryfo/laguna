@@ -19,8 +19,16 @@ use Psr\Log\LoggerInterface;
  *
  * For security be sure to declare any new methods as protected or private.
  */
+
 abstract class BaseController extends Controller
 {
+    // Global Methos User Logined
+    protected function getUser()
+    {
+        return model('User')->getUserWithProfile(intval(session()->get('id')));
+    }
+
+
     /**
      * Instance of the main Request object.
      *

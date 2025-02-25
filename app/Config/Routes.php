@@ -9,6 +9,7 @@ $routes->get('/', 'DashboardController::index');
 $routes->post('/', 'DashboardController::tambahEntry');
 $routes->get('departour', 'StationController::departour');
 $routes->get('arrived', 'StationController::arrived');
+$routes->get('delivery', 'StationController::delivery');
 
 
 $routes->get('/login', 'Auth::login');
@@ -25,4 +26,5 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function ($routes)
     $routes->get('barang', 'BarangController::index'); // Get all Barang
     $routes->post('departour/update-status/(:num)', 'BarangController::updateStatusDepartour/$1');
     $routes->post('arrived/update-status/(:num)', 'BarangController::updateStatusArrived/$1');
+    $routes->post('delivery/update-status/(:num)', 'BarangController::updateStatusDeliveryByCour/$1');
 });

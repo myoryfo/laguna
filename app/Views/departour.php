@@ -133,8 +133,8 @@
                                     <td><?= $item['pengirim'] ?></td>
                                     <td><?= $item['alamat_pengirim'] ?></td>
                                     <td><?= $item['lokasi_name'] ?></td>
-                                    <td><?= $item['status_name'] ?> <?= $item['kota_tujuan'] ?></td>
-                                    <td><?= $item['created_at'] ?></td>
+                                    <td><?= $item['status_name'] == "Entry" ? $item['status_name'] : $item['status_name'] . " " . $item['kota_tujuan'] ?> </td>
+                                    <td><?= $item['updated_at'] ?></td>
                                 </tr>
                         <?php endforeach; ?>
                     </tbody>

@@ -30,16 +30,12 @@ class Auth extends Controller
             $username = $this->request->getVar('username');
             $password = $this->request->getVar('password');
 
-            $userData = $this->user->getUserWithLokasi($username);
+            $userData = $this->user->getUserLogin($username);
 
             if ($userData && password_verify($password, $userData['password'])) {
                 session()->set([
                     'id' => $userData['id'],
-                    'username' => $userData['username'],
-                    'name' => $userData['name'],
                     'logged_in' => true,
-                    'lokasi_name' => $userData['lokasi_name'],
-                    'lokasi_id' => $userData['lokasi_id']
                 ]);
                 return redirect()->to('/');
             } else {

@@ -34,16 +34,9 @@
 
 <body id="page-top">
 
-
-
-
     <!-- Page Wrapper -->
 
     <div id="wrapper">
-
-
-
-
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -53,13 +46,15 @@
                 <div class="sidebar-brand-icon logo">
                     <img src="<?= base_url('assets/img/iconS.png'); ?>">
                 </div>
-                <div class="sidebar-brand-text mx-3" style="text-transform:uppercase">LAGUNA <?php echo session()->get('lokasi_name'); ?></div>
+                
+                <div class="sidebar-brand-text mx-3" style="text-transform:uppercase">LAGUNA <?= $user['lokasi_name']; ?></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Navbar Barang -->
+            <?php if($user['role_name'] === 'Admin'): ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-list-alt"></i>
@@ -75,7 +70,9 @@
                     </div>
                 </div>
             </li>
+            <?php endif; ?>
             <!-- Navbar Kurir -->
+             <?php if($user['role_name'] === 'Kurir'): ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
                     <i class="fas fa-list-alt"></i>
@@ -83,13 +80,14 @@
                 </a>
                 <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<?= base_url('daftar/tambah'); ?>">List Barang Kurir</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">Tambah Barang Kurir</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">List Barang</a>
+                        <a class="collapse-item" href="<?= base_url('delivery'); ?>">List Barang Siap Deliveryr</a>
+                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">POD/DEX</a>
                     </div>
                 </div>
             </li>
+            <?php endif; ?>
             <!-- Navbar User Management -->
+            <?php if($user['role_name'] === 'super_admin'): ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities3">
                     <i class="fas fa-list-alt"></i>
@@ -102,7 +100,7 @@
                     </div>
                 </div>
             </li>
-
+            <?php endif; ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -181,7 +179,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= session()->get('name'); ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['name']; ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/default.jpg'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -255,7 +253,7 @@
                             </div>
                         </div>
                         <!-- Hidden -->
-                        <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= session()->get('lokasi_id'); ?>">
+                        <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= $user['lokasi_id']; ?>">
                         <input type="hidden" id="status_id" name="status_id" value="1">
 
                     </div>

@@ -15,11 +15,19 @@ class User extends Model
         return $this->where('username', $username)->first();
     }
 
-    public function getUserWithLokasi($username)
+    public function getUserLogin($username)
     {
-        return  $this->where('username', $username)
-            ->select('users.*, lokasi.name as lokasi_name')
+        return  $this
+            ->where('username', $username)
+            ->first();
+    }
+    public function getUserWithProfile($id)
+    {
+        return  $this
+            ->select('users.*, lokasi.name as lokasi_name, role.name as role_name')
             ->join('lokasi', 'lokasi.id = users.lokasi_id')
+            ->join('role', 'role.id = users.role_id')
+            ->where('users.id', $id)    
             ->first();
     }
 }

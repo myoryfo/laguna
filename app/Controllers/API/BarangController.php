@@ -9,6 +9,7 @@ use App\Models\Barang;
 class BarangController extends ResourceController
 {
     protected $barang;
+    protected $user;
     protected $format = 'json';
 
     public function __construct()
@@ -59,6 +60,25 @@ class BarangController extends ResourceController
         
         if ($barang) {
             $this->barang->update($id, ['status_id' => 3]);
+            session()->setFlashdata('success', 'Departour updated successfully.');
+            return $this->respond(['status' => 'success', 'message' => 'Arrived updated successfully.']);
+        } else {
+            return $this->failNotFound('Post not found');
+        }
+    }
+    public function updateStatusDeliveryByCour($id)
+    {   
+        session();
+        // Find the post by ID
+        $barang = $this->barang->find($id);
+        // Update the stats_id to 3
+        
+        if ($barang) {
+            $data = [
+                'role_id' => 3,
+                'status_id' => 4,
+            ];
+            $this->barang->update($id, $data);
             session()->setFlashdata('success', 'Departour updated successfully.');
             return $this->respond(['status' => 'success', 'message' => 'Arrived updated successfully.']);
         } else {

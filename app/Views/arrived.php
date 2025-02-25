@@ -135,7 +135,7 @@
                                     <td><?= $item['alamat_pengirim'] ?></td>
                                     <td><?= $item['lokasi_name'] ?></td>
                                     <td><?= $item['status_name'] ?> <?= $item['kota_tujuan'] ?></td>
-                                    <td><?= $item['created_at'] ?></td>
+                                    <td><?= $item['updated_at'] ?></td>
                                 </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -159,9 +159,6 @@
                 $.ajax({
                     url: 'api/arrived/update-status/' + selectedPostId,
                     method: 'POST',
-                    headers: {
-                        [csrfHeader]: csrfToken // Sertakan CSRF token di header
-                    },
                     success: function(response) {
                         if (response.status === 'success') {
                             $("#confirmModal").modal("hide");

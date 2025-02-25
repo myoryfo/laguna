@@ -13,6 +13,7 @@ class MasterSeeder extends Seeder
         $this->call('UserSeeder');
         $this->call('BarangSeeder');
         $this->call('StatusSeeder');
+        $this->call('RoleSeeder');
         // Add other seeders here if needed
     }
 }

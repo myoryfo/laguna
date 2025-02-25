@@ -32,28 +32,42 @@ class Barang extends Model
         return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
             ->join('lokasi', 'lokasi.id = barang.lokasi_id')
             ->join('status', 'status.id = barang.status_id')
+             ->orderBy('status.id', 'ASC')
+            ->orderBy('updated_at', 'DESC')
             ->findAll();
     }
 
-    public function getBarangWithLokasiAndDepartour()
+    public function getBarangWithLokasiAndDepartour($user_id)
     {
         return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
             ->join('lokasi', 'lokasi.id = barang.lokasi_id')
             ->join('status', 'status.id = barang.status_id')
-            ->where('lokasi_id', session()->get('lokasi_id'))
+            ->where('lokasi_id', $user_id)
             ->whereIn('status.id', [1,2])
             ->orderBy('status.id', 'ASC')
+            ->orderBy('kota_tujuan', 'ASC')
             ->orderBy('updated_at', 'DESC')
             ->findAll();
     }
     
-    public function getBarangWithLokasiAndArrived()
+    public function getBarangWithLokasiAndArrived($user_lokasi_name)
     {
         return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
             ->join('lokasi', 'lokasi.id = barang.lokasi_id')
             ->join('status', 'status.id = barang.status_id')
-            ->where('kota_tujuan', session()->get('lokasi_name'))
+            ->where('kota_tujuan', $user_lokasi_name)
             ->whereIn('status.id', [2,3])
+            ->orderBy('status.id', 'ASC')
+            ->orderBy('updated_at', 'DESC')
+            ->findAll();
+    }
+    public function getBarangWithLokasiAndDelivery($user_lokasi_name)
+    {
+        return $this->select('barang.*, lokasi.name as lokasi_name, status.name as status_name')
+            ->join('lokasi', 'lokasi.id = barang.lokasi_id')
+            ->join('status', 'status.id = barang.status_id')
+            ->where('kota_tujuan', $user_lokasi_name)
+            ->whereIn('status.id', [3,4])
             ->orderBy('status.id', 'ASC')
             ->orderBy('updated_at', 'DESC')
             ->findAll();

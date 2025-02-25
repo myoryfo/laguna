@@ -26,10 +26,6 @@ class CreateBarangTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'kota_asal' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
             'no_tlp_penerima' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '15',
@@ -59,6 +55,11 @@ class CreateBarangTable extends Migration
             'status_id' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
+            ],
+            'role_id' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
