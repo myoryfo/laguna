@@ -75,16 +75,46 @@ class BarangController extends ResourceController
         
         if ($barang) {
             $data = [
-                'role_id' => 3,
+                'user_id' => session()->get('id'),
                 'status_id' => 4,
             ];
             $this->barang->update($id, $data);
-            session()->setFlashdata('success', 'Departour updated successfully.');
-            return $this->respond(['status' => 'success', 'message' => 'Arrived updated successfully.']);
+            session()->setFlashdata('success', 'Delivery updated successfully.');
+            return $this->respond(['status' => 'success', 'message' => 'Delivery updated successfully.']);
         } else {
             return $this->failNotFound('Post not found');
         }
     }
+    public function updateStatusPodDex($id, $status, $ket)
+    {   
+        session();
+        // Find the post by ID
+        $barang = $this->barang->find($id);
+        // Update the stats_id to 3
+        if($barang) {
+        if($status == 'pod') {
+            
+                $data = [
+                    'user_id' => session()->get('id'),
+                    'status_id' => 5,
+                    'keterangan' => $ket
+                ];
+        } else if($status == 'dex'){
+            $data = [
+                'user_id' => session()->get('id'),
+                'status_id' => 6,
+                'keterangan' => $ket
+            ];
+        }
+        
+            $this->barang->update($id, $data);
+            session()->setFlashdata('success', 'Delivery updated successfully.');
+            return $this->respond(['status' => 'success', 'message' => 'Delivery updated successfully.']);
+        } else {
+            return $this->failNotFound('Post not found');
+        }
+    }
+
 
     /**
      * Return a new resource object, with default properties.

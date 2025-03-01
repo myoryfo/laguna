@@ -12,7 +12,7 @@ class StatusSeeder extends Seeder
             ['name' => 'Entry'],
             ['name' => 'Departour To'],
             ['name' => 'Arrived In'],
-            ['name' => 'Delivery On Cour'],
+            ['name' => 'Delivered by'],
             ['name' => 'Success'],
             ['name' => 'Return'],
         ];

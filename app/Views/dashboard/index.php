@@ -108,7 +108,19 @@
                                     <td><?= $item['pengirim'] ?></td>
                                     <td><?= $item['alamat_pengirim'] ?></td>
                                     <td><?= $item['lokasi_name'] ?></td>
-                                    <td><?= $item['status_name'] ?></td>
+                                    <?php if($item['status_name'] == "Entry"): ?>
+                                    <td><?= $item['status_name']?></td>
+                                    <?php elseif($item['status_name'] == "Departour To"): ?>
+                                    <td><?= $item['status_name']?> <?= $item['lokasi_name']; ?></td>
+                                    <?php elseif($item['status_name'] == "Arrived In"): ?>
+                                    <td><?= $item['status_name']?> <?= $item['lokasi_name']; ?></td>
+                                    <?php elseif($item['status_name'] == "Delivered by"): ?>
+                                    <td><?= $item['status_name'] . " - " . explode(" ", $item['user_name'])[0]; ?></td>
+                                    <?php elseif($item['status_name'] == "Success"): ?>
+                                    <td><?= $item['status_name'] . " - " . $item['user_name']; ?></td>
+                                    <?php elseif($item['status_name'] == "Return"): ?>
+                                    <td><?= $item['status_name'] . " - " . $item['user_name']; ?></td>
+                                    <?php endif; ?>
                                     <td><?= $item['updated_at'] ?></td>
                                 </tr>
                         <?php

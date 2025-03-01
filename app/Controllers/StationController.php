@@ -28,6 +28,7 @@ class StationController extends BaseController
         $user = $this->getUser(); //this called data user login
         $barangData = $this->barang->getBarangWithLokasiAndDepartour($user['lokasi_id']);
         
+        
         $data = [
             'title' => 'Departour | Laguna',
             'company' => 'Laguna',
@@ -65,5 +66,19 @@ class StationController extends BaseController
             'user' => $user
         ];
         return view('delivery', $data);
+    }
+    public function poddex()
+    {
+        $user = $this->getUser(); //this called data user login
+        $barangData = $this->barang->getBarangWithLokasiAndPoddex($user['id']);
+        
+        $data = [
+            'title' => 'POD/DEX | Laguna',
+            'company' => 'Laguna',
+            'barang' => $barangData,
+            'validation' => $this->validation,
+            'user' => $user
+        ];
+        return view('poddex', $data);
     }
 }

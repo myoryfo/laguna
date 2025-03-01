@@ -81,7 +81,7 @@
                 <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?= base_url('delivery'); ?>">List Barang Siap Deliveryr</a>
-                        <a class="collapse-item" href="<?= base_url('daftar/delivery'); ?>">POD/DEX</a>
+                        <a class="collapse-item" href="<?= base_url('poddex'); ?>">POD/DEX</a>
                     </div>
                 </div>
             </li>
@@ -253,8 +253,10 @@
                             </div>
                         </div>
                         <!-- Hidden -->
+                         
                         <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= $user['lokasi_id']; ?>">
                         <input type="hidden" id="status_id" name="status_id" value="1">
+                        <input type="hidden" id="user_id" name="user_id" value="<?= $user['id']; ?>">
 
                     </div>
 

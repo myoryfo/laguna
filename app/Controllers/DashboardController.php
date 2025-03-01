@@ -47,6 +47,8 @@ class DashboardController extends BaseController
 
     public function tambahEntry()
     {
+
+        
         $rules = [
             'isi_barang' => [
                 'rules' => 'required|max_length[255]',
@@ -100,8 +102,6 @@ class DashboardController extends BaseController
             ],
      
         ];
-
-
         $data = [
             'noresi' => '66' . str_pad(mt_rand(0, 9999999), 7, '0', STR_PAD_LEFT),
             'isi_barang' => $this->request->getPost('isi_barang'),
@@ -114,11 +114,12 @@ class DashboardController extends BaseController
             'no_tlp_pengirim' => $this->request->getPost('no_tlp_pengirim'),
             'lokasi_id' => $this->request->getPost('lokasi_id'),
             'status_id' => $this->request->getPost('status_id'),
+            'user_id' => $this->request->getPost('user_id'),
+            
         ];
 
         if (!$this->validate($rules)) {
             $validation = \Config\Services::validation();
-            // dd($validation->listErrors());
             return redirect()->back()->withInput()->with('validation', $validation)->with('modal', true);
         }
         $this->barang->save($data);

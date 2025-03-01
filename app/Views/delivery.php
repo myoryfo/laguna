@@ -42,7 +42,7 @@
     <?php endif; ?>
 <!-- End Session Flash Success -->
         <div class="card-header py-3">
-            <h3 class="m-0 font-weight-bold">Daftar Barang Tiba (Arrived)</h3>
+            <h3 class="m-0 font-weight-bold">Daftar Barang Siap Delivery</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive sortable-table">
@@ -134,7 +134,7 @@
                                     <td><?= $item['pengirim'] ?></td>
                                     <td><?= $item['alamat_pengirim'] ?></td>
                                     <td><?= $item['lokasi_name'] ?></td>
-                                    <td><?= $item['status_name'] == "Arrived In" ? $item['status_name'] . " " . $item['kota_tujuan']  : $item['status_name'] . "-" . explode(" ", $user['name'])[0] ?></td>
+                                    <td><?= $item['status_name'] == "Arrived In" ? $item['status_name'] . " " . $item['kota_tujuan']  : $item['status_name'] . " - " . explode(" ", $item['user_name'])[0] ?></td>
                                     <td><?= $item['updated_at'] ?></td>
                                 </tr>
                         <?php endforeach; ?>

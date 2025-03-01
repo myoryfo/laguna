@@ -56,9 +56,13 @@ class CreateBarangTable extends Migration
                 'type'       => 'INT',
                 'unsigned'   => true,
             ],
-            'role_id' => [
+            'user_id' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
+            ],
+            'keterangan' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
                 'null' => true,
             ],
             'created_at' => [
@@ -76,6 +80,7 @@ class CreateBarangTable extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('barang');
+        $this->forge->addForeignKey('no_resi', 'barang_log', 'barang_id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
