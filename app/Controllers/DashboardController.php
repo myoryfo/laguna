@@ -23,7 +23,7 @@ class DashboardController extends BaseController
     {
         $user = $this->user; //this called data user login
 
-        $barangData = $this->barang->getBarangWithLokasiAndStatus();
+        $barangData = $this->barang->getBarangAll();
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
         };
@@ -115,6 +115,7 @@ class DashboardController extends BaseController
             'lokasi_id' => $this->request->getPost('lokasi_id'),
             'status_id' => $this->request->getPost('status_id'),
             'user_id' => $this->request->getPost('user_id'),
+            'current_id' => $this->request->getPost('current_id'),
             
         ];
 

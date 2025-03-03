@@ -33,10 +33,6 @@ class CreateBarangTable extends Migration
             'alamat_penerima' => [
                 'type'       => 'TEXT',
             ],
-            'kota_tujuan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
             'pengirim' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
@@ -57,6 +53,10 @@ class CreateBarangTable extends Migration
                 'unsigned'   => true,
             ],
             'user_id' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+            ],
+            'current_id' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
             ],

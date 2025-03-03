@@ -30,14 +30,18 @@ class Auth extends Controller
             $username = $this->request->getVar('username');
             $password = $this->request->getVar('password');
 
-            $userData = $this->user->getUserLogin($username);
+        $userData = $this->user->getUserLogin($username);
 
             if ($userData && password_verify($password, $userData['password'])) {
                 session()->set([
                     'id' => $userData['id'],
                     'logged_in' => true,
                 ]);
-                return redirect()->to('/');
+                if($userData['role_id'] == '1'){
+                    return redirect()->to('/');
+                } else if($userData['role_id'] == '2') {
+                    return redirect()->to('/delivery');
+                }
             } else {
                 return redirect()->to('/login')->with('error', 'Invalid username or password.');
             }

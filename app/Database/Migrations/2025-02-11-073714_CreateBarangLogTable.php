@@ -22,6 +22,10 @@ class CreateBarangLogTable extends Migration
                 'type'       => 'INT',
                 'unsigned'   => true,
             ],
+            'lokasi_id' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
+            ],
             'status_id' => [
                 'type'       => 'INT',
                 'unsigned'   => true,

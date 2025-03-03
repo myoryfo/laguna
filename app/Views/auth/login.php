@@ -25,21 +25,19 @@
 
 <body class="bg-img">
 
-
   <div class="container">
 
-
     <!-- Outer Row -->
-    <div class="d-flex height justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
-      <div class="col-7">
+      <div class="col-12 col-md-8 col-lg-6">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
               <div class="col-lg">
-                <div class="p-5">
+                <div class="p-4">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4 context-menu">Log In!</h1>
                   </div>

@@ -26,4 +26,5 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function ($routes)
     $routes->post('arrived/update-status/(:num)', 'BarangController::updateStatusArrived/$1');
     $routes->post('delivery/update-status/(:num)', 'BarangController::updateStatusDeliveryByCour/$1');
     $routes->post('poddex/update-status/(:num)/(:any)/(:any)', 'BarangController::updateStatusPoddex/$1/$2/$3');
+    $routes->post('tracking', 'BarangController::getDetails');
 });

@@ -23,6 +23,7 @@ class Barang extends Model
         'lokasi_id',
         'status_id',
         'user_id',
+        'current_id',
         'keterangan',
         'created_at',
         'updated_at'
@@ -51,12 +52,13 @@ class Barang extends Model
             'barang_id' => $barang['noresi'],
             'user_id' => $barang['user_id'],
             'status_id' => $barang['status_id'],
+            'lokasi_id' => $barang['current_id'],
             'created_at' => date('Y-m-d H:i:s'),
         ]);
     }
 
 
-    public function getBarangWithLokasiAndStatus()
+    public function getBarangAll()
     {
         return $this
             ->select('barang.*, lokasi.name as lokasi_name, status.name as status_name, users.name as user_name')
@@ -66,6 +68,17 @@ class Barang extends Model
             ->orderBy('status.id', 'ASC')
             ->orderBy('updated_at', 'DESC')
             ->findAll();
+    }
+
+    public function getBarangDetail($no_resi)
+    {
+        return $this
+            ->select('barang.id, barang.noresi, barang.isi_barang, barang.penerima, barang.alamat_penerima, barang.pengirim, barang.alamat_pengirim,lokasi.name as kota_asal, barang.kota_tujuan, status.name as status, users.name as user, barang.keterangan')
+            ->join('lokasi', 'lokasi.id = barang.lokasi_id')
+            ->join('status', 'status.id = barang.status_id')
+            ->join('users', 'users.id = barang.user_id')
+            ->where('noresi', $no_resi)
+            ->first();
     }
 
     public function getBarangWithLokasiAndDepartour($lokasi_id)

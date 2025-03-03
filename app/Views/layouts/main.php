@@ -257,6 +257,7 @@
                         <input type="hidden" id="lokasi_id" name="lokasi_id" value="<?= $user['lokasi_id']; ?>">
                         <input type="hidden" id="status_id" name="status_id" value="1">
                         <input type="hidden" id="user_id" name="user_id" value="<?= $user['id']; ?>">
+                        <input type="hidden" id="user_id" name="current_id" value="<?= $user['lokasi_id']; ?>">
 
                     </div>
 
@@ -312,12 +313,6 @@
 
     </div>
 </div>
-<?php if (session()->get('logged_in')): ?>
-
-    <div class="alert alert-success" role="alert" id="login-alert">
-        You are logged in!
-    </div>
-<?php endif; ?>
 
 </div>
 <?php if ($modal): ?>
@@ -340,37 +335,77 @@ document.addEventListener("DOMContentLoaded", function () {
 <!-- End Modal Tambah Barang -->
 
 <!-- Modal Navbar Tracking Barang-->
-<div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="trackingModalLabel" aria-hidden="true">
 
-<div class="modal-dialog modal-fullscreen-xxl-down" role="document">
+<div class="modal-dialog modal-fullscreen-xxl-down show" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title text-center w-100" id="exampleModalLabel">Tracking Barang</h5>
+            <h5 class="modal-title text-center w-100" id="trackingModalLabel">Tracking Barang</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <div class="modal-body position-relative">
-            <form action="/" method="post">
+        <div class="modal-body">
                 <div class="mb-3">
                     <input type="text" class="form-control text-center" id="no_resi" name="no_resi" placeholder="Masukkan Nomor Resi">
                 </div>
-
-                <div class="modal-footer position-absolute bottom-0 end-0 w-100">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div id="modal_table" class="w-full h-100">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">No.Resi</th>
+                            <th scope="col">Kota Asal</th>
+                            <th scope="col">Kota Tujuan</th>
+                            <th scope="col">Isi Barang</th>
+                            <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td id="no_resi1"></td>
+                            <td id="kota_asal"></td>
+                            <td id="kota_tujuan_modal"></td>
+                            <td id="isi_barang_modal"></td>
+                            <td id="status"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">Pengirim</th>
+                            <th scope="col">Penerima</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td id="penerima_modal"></td>
+                            <td id="pengirim_modal"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="barangLogTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Lokasi</th>
+                            <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
+
+                <div class="modal-footer w-100">
+                    <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="searchBtn" name="searchBtn" class="btn btn-primary">Search</button>
+                </div>
         </div>
 
     </div>
 </div>
-<?php if (session()->get('logged_in')): ?>
-    <div class="alert alert-success" role="alert" id="login-alert">
-        You are logged in!
-    </div>
-<?php endif; ?>
 
 </div>
 <!-- End Modal Tracking Barang -->
@@ -428,6 +463,92 @@ document.addEventListener("DOMContentLoaded", function () {
                 }, 500);
             }
         }, 1000);
+    </script>
+
+    <script>
+            $(document).ready(function(){
+                $("#modal_table").hide();
+
+                const search = () => {
+                    
+                    $("#modal_table").show();
+                    let noResi = $('#no_resi').val();
+                    
+                    if(noResi === ''){
+                        alert('Tolong Masukkan No Resi');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "<?= base_url('api/tracking') ?>", 
+                        type: "POST",
+                        data: JSON.stringify({no_resi: noResi}),
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function(response){
+                            if(response.success){
+                                
+                                $('#no_resi1').text(response.data.barang.noresi);
+                                $('#no_resi1').text(response.data.barang.noresi);
+                                $('#isi_barang_modal').text(response.data.barang.isi_barang);
+                                $('#penerima_modal').text(`${response.data.barang.penerima} | ${response.data.barang.alamat_penerima}`);
+                                $('#pengirim_modal').text(`${response.data.barang.pengirim} | ${response.data.barang.alamat_pengirim}`);
+                                $('#kota_asal').text(response.data.barang.kota_asal);
+                                $('#kota_tujuan_modal').text(response.data.barang.kota_tujuan);
+                                $('#status').text(`${response.data.barang.status} - ${response.data.barang.keterangan}`);
+
+                                $("#barangLogTable tbody").empty();
+
+                                // Loop through the response using $.each()
+                                $.each(response.data.barang_log, function(index, item){
+                                    let row = "<tr>" +
+                                                "<td>" + item.tanggal + "</td>" +
+                                                "<td>" + item.lokasi + "</td>" +
+                                                `<td>${item.status} - ${item.user}</td>`+
+
+                                            "</tr>";
+                                    $("#barangLogTable tbody").append(row);
+                                });
+
+
+                            } else {
+                                alert('No Resi Tidak Ditemukan');
+                            }
+                        },
+                        error: function(){
+                            alert('Error fetching data.');
+                        }
+                    });
+                }
+
+                $('#searchBtn').click(function(){
+                    search();
+                });
+
+                $('#no_resi').keypress(function(e){
+                    if(e.key === "Enter"){
+                        search();
+                    }
+                });
+
+
+                $('#closeBtn').click(function(){
+                    $("#modal_table").hide();
+                    console.log("Modal is now hidden.");
+                });
+                $('#trackingModal').on('hide.bs.modal', function (e) {
+                    $("#modal_table").hide();
+                    console.log("Modal is now hidden.");
+                });
+
+                $(document).keydown( (e) => {
+                    if (e.key === "Escape") {
+                        $('#trackingModal').modal('hide');
+                        $("#modal_table").hide();
+                    }
+                });
+            });
+            
     </script>
 
 </body>

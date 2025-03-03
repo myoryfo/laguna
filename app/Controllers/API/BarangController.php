@@ -6,15 +6,16 @@ use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\Barang;
 
+
 class BarangController extends ResourceController
 {
     protected $barang;
-    protected $user;
     protected $format = 'json';
 
     public function __construct()
     {
         $this->barang = new Barang();
+        
     }
     /**
      * Return an array of resource objects, themselves in array format.
@@ -57,9 +58,12 @@ class BarangController extends ResourceController
         // Find the post by ID
         $barang = $this->barang->find($id);
         // Update the stats_id to 3
+
+        $users = new \App\Models\User();
+        $user = $users->find(session()->get('id'));
         
         if ($barang) {
-            $this->barang->update($id, ['status_id' => 3]);
+            $this->barang->update($id, ['status_id' => 3, 'current_id' => $user['lokasi_id']]);
             session()->setFlashdata('success', 'Departour updated successfully.');
             return $this->respond(['status' => 'success', 'message' => 'Arrived updated successfully.']);
         } else {
@@ -112,6 +116,27 @@ class BarangController extends ResourceController
             return $this->respond(['status' => 'success', 'message' => 'Delivery updated successfully.']);
         } else {
             return $this->failNotFound('Post not found');
+        }
+    }
+
+    public function getDetails()
+    {
+        $barang = new \App\Models\Barang();
+        $barangLog = new \App\Models\BarangLog();
+        if ($this->request->getJSON()) {
+            $noResi = $this->request->getJSON()->no_resi;
+            $barangDetail = $barang->getBarangDetail($noResi);
+            $barangLogDetail = $barangLog->getBarangLogbyNoResi($noResi);
+
+            if ($barangDetail) {
+                $data = [
+                    'barang' => $barangDetail,
+                    'barang_log' => $barangLogDetail
+                ];
+                return $this->response->setJSON(['success' => true, 'data' => $data]);
+            } else {
+                return $this->response->setJSON(['success' => false]);
+            }
         }
     }
 
